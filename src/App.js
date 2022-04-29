@@ -24,12 +24,8 @@ const App = () => {
 
   //Setting slices of state 
   const [formValues, setFormValues] = useState(initialFormValues);
- // const [newOrder, setNewOrder] = useState([]);
   
  
-
-
-
   const updateForm = (inputName, inputValue) => {
     setFormValues({...formValues, [inputName]:  inputValue});
   };
@@ -44,6 +40,7 @@ const App = () => {
       peppers: formValues.peppers,
       special: formValues.special
     };
+
     axios.post("https://reqres.in/api/orders", newPizza)
       .then(res => {
         console.log(res.data);
