@@ -32,7 +32,9 @@ const App = () => {
 
   }
 
-  const submitForm = () => {
+  const submitForm = (e) => {
+    e.preventDefault();
+
     const newPizza = {
       name: formValues.name.trim(),
       size: formValues.size.trim(),
@@ -41,7 +43,7 @@ const App = () => {
     }
 
     setNewOrder([...newOrder, newPizza]);
-    
+
     axios.post("https://reqres.in/api/orders", newOrder)
       .then(res => {
         console.log(res.data)
