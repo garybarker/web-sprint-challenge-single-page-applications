@@ -1,28 +1,53 @@
-import React from "react";
+import React, {useState} from "react";
+
 
 const OrderForm = (props) => {
+  const [formError, setFormError] = useState('');
+  const {values, update, submit} = props;
 
-    const {values, update, submit} = props;
 
-    const onChange = evt => {
-      const {name, value, checked, type} = evt.target;
-      const valueToUse = type === "checkbox" ? checked : value;
-      update(name, valueToUse);
+
+  const nameChange= (evt) => {
+    const {name, value} = evt.target;
+    update(name, value);
+    const x = value.length;
+    if(x < 2){
+      return setFormError('name must be at least 2 characters');
+    }else{
+      return setFormError('');
     }
+ }
+    
+  
+  const onChange = (evt) => {
+    const {name, value, checked, type} = evt.target;
+    const valueToUse = type === "checkbox" ? checked : value;
+    update(name, valueToUse);
+  
+  }
+
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    submit();
+  }
+
 
 
     return (
       <>
-        <form className="form-container" id="pizza-form" onSubmit={submit}>
+        <form className="form-container" id="pizza-form" onSubmit={onSubmit}>
           <label>Name:
             <input 
               type="text"
               id="name-input"
               name="name"
               value={values.name}
-              onChange={onChange} 
+              onChange={nameChange} 
             />
           </label>
+
+          <p>{formError}</p>
                 
           <div className="form-dropdown">
             <label>Size:
@@ -41,7 +66,7 @@ const OrderForm = (props) => {
                 type="checkbox"
                 name="pepperoni"
                 onChange={onChange}
-                checked={values.toppings.pepperoni}
+                checked={values.pepperoni}
               />
             </label>
             <label>Sausage:
@@ -49,7 +74,7 @@ const OrderForm = (props) => {
                 type="checkbox"
                 name="sausage"
                 onChange={onChange}
-                checked={values.toppings.sausage}
+                checked={values.sausage}
               />
             </label>
             <label>Onions:
@@ -57,7 +82,7 @@ const OrderForm = (props) => {
                 type="checkbox"
                 name="onions"
                 onChange={onChange}
-                checked={values.toppings.onions}
+                checked={values.onions}
               />
             </label>  
             <label>Peppers:
@@ -65,7 +90,7 @@ const OrderForm = (props) => {
                 type="checkbox"
                 name="peppers"
                 onChange={onChange}
-                checked={values.toppings.peppers}
+                checked={values.peppers}
               />
             </label>
           </div>
@@ -87,6 +112,6 @@ const OrderForm = (props) => {
       </>
     )
 
-    }
+  }
 
     export default OrderForm;
