@@ -34,7 +34,7 @@ const App = () => {
     setFormValues({...formValues, [inputName]:  inputValue});
   };
 
-  const submitForm = async() => {
+  const submitForm = () => {
     const  newPizza =  {
       name: formValues.name.trim(),
       size: formValues.size,
